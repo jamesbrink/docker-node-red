@@ -43,6 +43,10 @@ Connection: keep-alive
 
 ## Data Volumes
 ---
-The following directories are setup as volumes, and can be access from other containers.
+The following directories are setup as volumes.
+For detailed information on [Data Volumes](https://docs.docker.com/engine/userguide/containers/dockervolumes/) please refer to the offical Docker [Documentation](https://docs.docker.com/engine/userguide/).
 
-* `/data` - This is where Node-RED configuration data and flows reside.
+* `/data` - Node-RED configuration data and flows reside.
+
+The `/data` volume contains your Node-RED configuration settings, as well as your flows.
+You will want to use this volume to persist your data during upgrades or the share with other containers.
