@@ -1,0 +1,11 @@
+version: '2'
+services:
+  node-red:
+    image: jamesbrink/node-red
+    ports:
+      - "1880:1880"
+    volumes:
+      - node-red:/data
+
+volumes:
+  node-red:

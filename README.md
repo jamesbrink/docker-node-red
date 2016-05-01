@@ -2,6 +2,7 @@
 ---
 This is a Docker container for [Node-RED](http://nodered.org/). The Goal of this container is to create a customizable yet easy to use instance of Node-RED while maintaining a small footprint.
 
+
 ## Usage
 ---
 To run with default settings:
@@ -40,13 +41,19 @@ Date: Sun, 01 May 2016 01:13:17 GMT
 Connection: keep-alive
 ```
 
+I have included a basic [docker-compose.yml](./docker-compose.yml) which creates a basic named [Volume](https://docs.docker.com/engine/userguide/containers/dockervolumes/#data-volumes)
+to persist Node-RED configuration and Flows
+
+```shell
+docker-compose up
+```
 
 ## Data Volumes
 ---
 The following directories are setup as volumes.
-For detailed information on [Data Volumes](https://docs.docker.com/engine/userguide/containers/dockervolumes/) please refer to the offical Docker [Documentation](https://docs.docker.com/engine/userguide/).
+For detailed information on [Data Volumes](https://docs.docker.com/engine/userguide/containers/dockervolumes/) please refer to the official Docker [Documentation](https://docs.docker.com/engine/userguide/).
 
-* `/data` - Node-RED configuration data and flows reside.
+* `/data` - Node-RED configuration data and Flows reside.
 
-The `/data` volume contains your Node-RED configuration settings, as well as your flows.
+The `/data` volume contains your Node-RED configuration settings, as well as your Flows.
 You will want to use this volume to persist your data during upgrades or the share with other containers.
