@@ -1,26 +1,63 @@
 # Node-RED
 #
-# Version 0.0.1
+# Version  0.16.2
 
-FROM alpine:3.1
+FROM node:6-alpine
 MAINTAINER James Brink, brink.james@gmail.com
-LABEL version="0.0.1"
+LABEL version=" 0.16.2"
 LABEL description="Node-RED"
 
-# Install needed packages
-RUN apk update \
-      && apk add nodejs make gcc g++ python \
-      && npm -g install npm@latest-2 \
-      && npm install -g --unsafe-perm node-red
-
-# Create node-red user, group and app diectory
+# Create node-red user, directories and source code.
 RUN addgroup node-red \
-      && adduser -h /home/node-red -s /bin/sh -D -G node-red node-red \
-      && mkdir /data \
-      && chown -R node-red:node-red /data
+	&& adduser -h /home/node-red -s /bin/sh -D -G node-red node-red \
+	&& mkdir /data \
+	&& apk update \
+	&& apk add --no-cache \
+		python \
+		udev \
+		libusb \
+		git \
+		make \
+		gcc \
+		g++ \
+		libusb-dev \
+		icu-dev \
+		eudev-dev \
+		linux-headers \
+	&& cd /home/node-red/ \
+	&& git clone https://github.com/node-red/node-red.git /home/node-red/ \
+	&& git checkout  0.16.2 \
+	&& npm install --build-from-source \
+		sentiment \
+		wordpos \
+		xml2js \
+		pi-gpio \
+		firmata \
+		fs.notify \
+		serialport \
+		ntwitter \
+		feedparser \
+		growl \
+		node-prowl \
+		pushbullet \
+		nodemailer \
+		imap \
+		irc \
+		simple-xmpp \
+		redis \
+		mongodb \
+		level \
+		eyes \
+	&& npm install --unsafe-perm \
+	&& npm run build \
+	&& npm cache clean \
+	&& apk del git make gcc g++ libusb-dev icu-dev eudev-dev linux-headers \
+	&& chown -R node-red:node-red /data /home/node-red
+	
+WORKDIR /home/node-red/
 
 USER node-red
 VOLUME ["/data"]
 EXPOSE 1880
 
-CMD ["/usr/bin/node-red", "--userDir", "/data", "-v"]
+CMD ["/usr/local/bin/node", "red.js", "--userDir", "/data", "-v"]
