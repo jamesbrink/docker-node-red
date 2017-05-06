@@ -1,10 +1,10 @@
 # Node-RED
 #
-# Version  0.16.2
+# Version  latest
 
 FROM node:6-alpine
 MAINTAINER James Brink, brink.james@gmail.com
-LABEL version=" 0.16.2"
+LABEL version="latest"
 LABEL description="Node-RED"
 
 # Create node-red user, directories and source code.
@@ -26,7 +26,7 @@ RUN addgroup node-red \
 		linux-headers \
 	&& cd /home/node-red/ \
 	&& git clone https://github.com/node-red/node-red.git /home/node-red/ \
-	&& git checkout  0.16.2 \
+	&& git checkout HEAD \
 	&& npm install --build-from-source \
 		sentiment \
 		wordpos \
@@ -55,7 +55,6 @@ RUN addgroup node-red \
 	&& chown -R node-red:node-red /data /home/node-red
 	
 WORKDIR /home/node-red/
-
 USER node-red
 VOLUME ["/data"]
 EXPOSE 1880
