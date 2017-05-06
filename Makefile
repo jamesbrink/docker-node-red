@@ -1,4 +1,4 @@
-NAME = jamesbrink/node-red
+NAME=jamesbrink/node-red
 TEMPLATE=Dockerfile.template
 
 .PHONY: all latest 0.16.2 0.15.3 0.14.6
