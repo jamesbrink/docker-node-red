@@ -49,7 +49,7 @@ RUN addgroup node-red \
 		level \
 		eyes \
 	&& npm install --unsafe-perm \
-	&& npm run build \
+
 	&& npm cache clean \
 	&& apk del git make gcc g++ libusb-dev icu-dev eudev-dev linux-headers \
 	&& chown -R node-red:node-red /data /home/node-red

@@ -24,5 +24,6 @@ latest:
 0.14.6:
 	mkdir -p $(@)
 	printf "`cat $(TEMPLATE)`" $(@) $(@) $(@) > $(@)/Dockerfile
+	gsed -i -e 's/.*npm run build.*$$//g' $(@)/Dockerfile
 	docker build -t $(NAME):$(@) $(@)
 
